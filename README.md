@@ -1,19 +1,20 @@
-# College Publications & Patents
+# College Books & Chapters Portal
 
-A modern full-stack web application designed for academic institutions to manage, store, and publicly display faculty patent publications. Built with **Express 5 + MySQL** on the backend and **React 19 + Vite + Tailwind 4** on the frontend.
+A modern full-stack web application designed for academic institutions to manage, store, and publicly display faculty books and book chapters. Built with **Express 5 + MySQL** on the backend and **React 19 + Vite + Tailwind 4** on the frontend.
 
-![Project Banner](./frontend/public/favicon.svg)
+![Project Banner](./frontend/public/NRI-logo.png)
 
 ## ✨ Features
 
 ### Public Portal
-- **Browse & Search:** Fully paginated, sortable, and filterable table of all faculty patents.
+- **Browse & Search:** Fully paginated, sortable, and filterable table of all faculty books and book chapters.
 - **Export Filters:** Smart Excel export that exactly matches the active table filters.
+- **Attractive UI:** Beautiful intro loader and modern design using Tailwind and Framer Motion.
 - **Responsive Design:** Seamless experience across desktop and mobile devices.
 
 ### Admin Dashboard
-- **Role-Based Access Control:** Super Admins can manage sub-admins; Sub-admins can only manage patents within their assigned department.
-- **Patent Submission:** Secure multi-file PDF uploads with live duplicate detection.
+- **Role-Based Access Control:** Super Admins can manage sub-admins; Sub-admins can only manage entries within their assigned department.
+- **Book Submission:** Secure multi-file uploads with live duplicate detection.
 - **Bulk Import:** Client-side parsing of Excel spreadsheets for one-click batch uploading.
 - **Audit Trails:** Comprehensive logging of all system actions (creates, updates, deletes).
 - **System Health:** Integrated `/health` endpoint and automatic database backup system.
@@ -36,7 +37,7 @@ The application automatically provisions its own database schema, tables, and se
    ```bash
    cd backend
    npm install
-   # copy .env.example to .env and configure DB credentials
+   # copy .env.example to .env and configure DB credentials (set DB_NAME=books_portal)
    npm run dev
    ```
 
@@ -75,17 +76,17 @@ The backend provides a comprehensive REST architecture secured via JWT tokens.
 
 | Group | Endpoint | Description | Auth Required |
 |---|---|---|---|
-| **Public** | `GET /form/formGet` | Retrieve paginated list of patents | None |
-| **Public** | `GET /form/downloadExcel` | Export patent data (supports data filtering) | None |
+| **Public** | `GET /form/formGet` | Retrieve paginated list of books/chapters | None |
+| **Public** | `GET /form/downloadExcel` | Export book data (supports data filtering) | None |
 | **System** | `GET /health` | Check MySQL database connectivity | None |
 | **Auth** | `POST /login` | Authenticate an admin user | None |
-| **Patents** | `POST /form/formEntry` | Submit a new patent (with PDFs) | Any Admin |
-| **Patents** | `PUT /form/formEntryUpdate` | Update existing patent | Any Admin |
-| **Patents** | `DELETE /form/deleteEntry/:id`| Remove patent and associated PDFs | Any Admin |
+| **Books** | `POST /form/formEntry` | Submit a new book/chapter (with PDFs) | Any Admin |
+| **Books** | `PUT /form/formEntryUpdate` | Update existing book | Any Admin |
+| **Books** | `DELETE /form/deleteEntry/:id`| Remove book and associated PDFs | Any Admin |
 | **Admins** | `GET /admin/admins` | List paginated administrators | Super Admin |
 | **Logs** | `POST /admin/logs/cleanup` | Delete audit logs older than N months | Super Admin |
 
-*For the complete list of 21 unique endpoints and parameter documentation, view the respective router files in `backend/routers/`.*
+*For the complete list of endpoints and parameter documentation, view the respective router files in `backend/routers/`.*
 
 ---
 
@@ -111,4 +112,3 @@ The backend provides a comprehensive REST architecture secured via JWT tokens.
 - **Injection Protection:** Parameterized queries and backtick column escaping for dynamic sorts.
 - **Denial of Service:** `express.json` request body capped at 1MB.
 - **Fast Startup Failures:** Pre-flight checks ensure all critical environment variables exist at boot.
-# college-books
